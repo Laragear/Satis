@@ -1,0 +1,6 @@
+{
+  "name": "Laragear Repository",
+  "description": "Private Composer repository for Laragear packages",
+  "homepage": "https://laragear.github.io/satis",
+  "packages": {}
+}
