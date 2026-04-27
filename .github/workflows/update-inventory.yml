@@ -1,0 +1,67 @@
+name: Update Package Inventory
+
+on:
+  workflow_call:
+    inputs:
+      package_name:
+        description: 'Composer package name (e.g. laragear/web-checkout)'
+        required: true
+        type: string
+      version:
+        description: 'Bare semver version (no v prefix, e.g. 1.2.3)'
+        required: true
+        type: string
+      dist_url:
+        description: 'Keygen artifact redirect URL for this version'
+        required: true
+        type: string
+      action:
+        description: '"add" to upsert, "remove" to delete'
+        required: true
+        type: string
+    secrets:
+      SATIS_DEPLOY_TOKEN:
+        description: >
+          Fine-grained PAT with Contents read/write on Laragear/Satis.
+          Must NOT be GITHUB_TOKEN — PAT pushes are required to trigger
+          the deploy-pages workflow downstream.
+        required: true
+
+jobs:
+  update:
+    runs-on: ubuntu-latest
+
+    steps:
+      # Explicitly check out Laragear/Satis — reusable workflows run in the
+      # caller's repo context, so the default checkout would be wrong.
+      - name: Checkout Laragear/Satis
+        uses: actions/checkout@de0fac2e4500dabe0009e67214ff5f5447ce83dd
+        with:
+          repository: Laragear/Satis
+          token:      ${{ secrets.SATIS_DEPLOY_TOKEN }}
+          ref:        main
+
+      - name: Setup Node
+        uses: actions/setup-node@48b55a011bda9f5d6aeb4c2d9c7362e8dae4041e
+        with:
+          node-version: 22
+
+      - name: Run inventory update
+        run: |
+          node scripts/update-satis.mjs \
+            "${{ inputs.action }}" \
+            "${{ inputs.package_name }}" \
+            "${{ inputs.version }}" \
+            "${{ inputs.dist_url }}"
+
+      - name: Commit and push
+        run: |
+          git config user.name  "github-actions[bot]"
+          git config user.email "github-actions[bot]@users.noreply.github.com"
+          git add satis.json
+          if git diff --cached --quiet; then
+            echo "satis.json unchanged — nothing to commit."
+          else
+            git commit -m "chore(${{ inputs.action }}): ${{ inputs.package_name }}@${{ inputs.version }}"
+            git push
+          fi
