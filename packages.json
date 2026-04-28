@@ -1,3 +1,14 @@
 {
-  "packages": {}
+  "packages": {
+    "laragear/web-checkout": {
+      "1.0.0": {
+        "name": "laragear/web-checkout",
+        "version": "1.0.0",
+        "dist": {
+          "url": "https://raw.pkg.keygen.sh/999f3068-aefb-47bc-aa32-4b2fabe3261b/c06c3dce-ba4f-4edf-bedb-6fe890ff7b8e/1.0.0/package.zip",
+          "type": "zip"
+        }
+      }
+    }
+  }
 }
