@@ -4,7 +4,7 @@ on:
   workflow_call:
     inputs:
       package_name:
-        description: 'Composer package name (e.g. laragear/web-checkout)'
+        description: 'Composer package name (e.g. laragear/webcheckout)'
         required: true
         type: string
       version:
@@ -19,21 +19,13 @@ on:
         description: '"add" to upsert, "remove" to delete'
         required: true
         type: string
-    secrets:
-      SATIS_DEPLOY_TOKEN:
-        description: >
-          Fine-grained PAT with Contents read/write on Laragear/Satis.
-          Must NOT be GITHUB_TOKEN — PAT pushes are required to trigger
-          the deploy-pages workflow downstream.
-        required: true
+    # No secrets: block — callers use "secrets: inherit" so SATIS_DEPLOY_TOKEN
+    # is available implicitly without triggering the "required" validation error.
 
 jobs:
   update:
     runs-on: ubuntu-latest
-
     steps:
-      # Explicitly check out Laragear/Satis — reusable workflows run in the
-      # caller's repo context, so the default checkout would be wrong.
       - name: Checkout Laragear/Satis
         uses: actions/checkout@de0fac2e4500dabe0009e67214ff5f5447ce83dd
         with:
