@@ -19,12 +19,12 @@ const [,, action, packageName, version, distUrl] = process.argv;
 // ── Validate inputs ─────────────────────────────────────────────────────────
 
 if (!action || !packageName || !version) {
-  console.error('Usage: update-satis.mjs <add|remove> <package-name> <version> [dist-url]');
+  console.error('Usage: update-satis.mjs <add|remove> <package-name> <version> [dist_url]');
   process.exit(1);
 }
 
 if (action === 'add' && !distUrl) {
-  console.error('dist-url is required when action is "add".');
+  console.error('dist_url is required when action is "add".');
   process.exit(1);
 }
 
