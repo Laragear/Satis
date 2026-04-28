@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Laragear Repository</title>
+  <style>
+    body { font-family: system-ui, sans-serif; max-width: 720px; margin: 3rem auto; padding: 0 1rem; }
+    pre  { background: #f4f4f4; padding: 1rem; border-radius: 6px; overflow-x: auto; }
+  </style>
+</head>
+<body>
+  <h1>Laragear Repository</h1>
+  <p>Private Composer repository for Laragear packages</p>
+
+  <h2>Setup</h2>
+  <p>Add to your <code>composer.json</code>:</p>
+  <pre><code>{
+  "repositories": [
+    { "type": "composer", "url": "https://laragear.github.io/satis" }
+  ]
+}</code></pre>
+
+  <p>Add to your <code>auth.json</code> (your Keygen license key as Bearer token):</p>
+  <pre><code>{
+  "bearer": {
+    "api.keygen.sh": "YOUR-LICENSE-KEY"
+  }
+}</code></pre>
+
+  <h2>Packages (1)</h2>
+  <ul><li><strong>laragear/web-checkout</strong><ul><li><code>1.0.0</code></li></ul></li></ul>
+</body>
+</html>

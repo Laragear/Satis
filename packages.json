@@ -1,0 +1,14 @@
+{
+  "packages": {
+    "laragear/web-checkout": {
+      "1.0.0": {
+        "name": "laragear/web-checkout",
+        "version": "1.0.0",
+        "dist": {
+          "url": "https://api.keygen.sh/v1/accounts/999f3068-aefb-47bc-aa32-4b2fabe3261b/releases/1.0.0/artifacts/package.zip",
+          "type": "zip"
+        }
+      }
+    }
+  }
+}
