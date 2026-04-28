@@ -4,11 +4,11 @@ on:
   workflow_call:
     inputs:
       package_name:
-        description: 'Composer package name (e.g. laragear/webcheckout)'
+        description: 'Composer package name, e.g. "laragear/webcheckout"'
         required: true
         type: string
       version:
-        description: 'Bare semver version (no v prefix, e.g. 1.2.3)'
+        description: 'Bare semver version, e.g. "1.2.3" (no v prefix)'
         required: true
         type: string
       dist_url:
@@ -19,8 +19,12 @@ on:
         description: '"add" to upsert, "remove" to delete'
         required: true
         type: string
-    # No secrets: block — callers use "secrets: inherit" so SATIS_DEPLOY_TOKEN
-    # is available implicitly without triggering the "required" validation error.
+    secrets:
+      SATIS_DEPLOY_TOKEN:
+        description: >
+          Fine-grained PAT with Contents read/write on Laragear/Satis.
+          Must be a PAT — GITHUB_TOKEN pushes do not trigger downstream workflows.
+        required: true
 
 jobs:
   update:
